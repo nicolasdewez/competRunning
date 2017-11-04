@@ -8,8 +8,10 @@ Results are based on website [http://bases.athle.com/](http://bases.athle.com/).
 ## Installation
 
 ```bash
-composer install
+composer install --no-interaction
 ```
+
+Change values in file `configuration/app.yaml` if you want.
 
 ## Using
 
@@ -18,6 +20,7 @@ composer install
 Change values in configuration file: `configuration/app.yaml`.
 
 * Year is required.
+* Distance is required but value can be "~"
 * Others fields are optional.
 
 
@@ -62,10 +65,20 @@ All France's departments on 3 digits.
 
 ### Execution
 
+#### Simple execution
+
 ```bash
 ./bin/app.php
 ```
 
 * Start date is asked (value is optional).
 * End date is asked (value is optional).
+* Results are exported in file in directory build.
+
+#### Execution with options
+
+```bash
+./bin/app.php --startDate=2018-07-01 --endDate=2018-07-31
+```
+
 * Results are exported in file in directory build.

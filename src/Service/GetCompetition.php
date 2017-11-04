@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\Competition;
+use App\Model\Search;
 use App\Model\Trial;
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
@@ -31,15 +32,26 @@ class GetCompetition
         self::ORGANIZER_SERVICES,
     ];
 
+    /** @var DistanceToKm */
+    private $distanceToKm;
+
     /**
+     * @param DistanceToKm $distanceToKm
+     */
+    public function __construct(DistanceToKm $distanceToKm)
+    {
+        $this->distanceToKm = $distanceToKm;
+    }
+
+    /**
+     * @param Search $search
      * @param string $name
      * @param string $code
      *
      * @return Competition|null
      */
-    public function execute(string $name, string $code): ?Competition
+    public function execute(Search $search, string $name, string $code): ?Competition
     {
-        dump($code);
         $client = new Client();
 
         $matches = [];
@@ -67,10 +79,10 @@ class GetCompetition
             ->setAddressCity($this->getValueOrganizer($linesOrganizer, self::ORGANIZER_CITY))
             ->setPhone($this->getValueOrganizer($linesOrganizer, self::ORGANIZER_PHONE))
             ->setServices($this->getServicesOrganizer($linesOrganizer))
-            ->setTrials($this->getTrials($crawler))
+            ->setTrials($this->getTrials($crawler, $search))
         ;
 
-        return $competition;
+        return $competition->getCountTrials() ? $competition : null;
     }
 
 
@@ -80,7 +92,7 @@ class GetCompetition
      *
      * @return string
      */
-    private function getValueOrganizer(Crawler $lines, $info): string
+    private function getValueOrganizer(Crawler $lines, string $info): string
     {
         $values = $lines->each(function(Crawler $node) use ($info) {
             if ($info === $node->filter('td:nth-child(1)')->text()) {
@@ -121,25 +133,31 @@ class GetCompetition
 
     /**
      * @param Crawler $crawler
+     * @param Search  $search
      *
      * @return array
      */
-    private function getTrials(Crawler $crawler): array
+    private function getTrials(Crawler $crawler, Search $search): array
     {
         $blocks = $crawler->filter('#bddDetails table.linedRed');
         if (2 > $blocks->count()) {
             return [];
         }
 
-        $trials = $blocks->eq(1)->filter('tr > td > table > tr')->each(function(Crawler $node, int $index) {
+        $trials = $blocks->eq(1)->filter('tr > td > table > tr')->each(function(Crawler $node) use ($search) {
             if (7 !== $node->children()->count()) {
-                return;
+                return null;
+            }
+
+            $distance = $this->distanceToKm->execute($node->filter('td:nth-child(5)')->text());
+            if ($search->getDistanceMin() > $distance || $distance > $search->getDistanceMax()) {
+                return null;
             }
 
             return (new Trial())
                 ->setDate($node->filter('td:nth-child(2)')->text())
                 ->setName($node->filter('td:nth-child(3) b')->text())
-                ->setDistance($node->filter('td:nth-child(5)')->text())
+                ->setDistance($distance)
             ;
         });
 

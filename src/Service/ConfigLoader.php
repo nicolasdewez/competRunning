@@ -23,6 +23,8 @@ class ConfigLoader
             ->setLigue($config['ligue'])
             ->setType($config['type'])
             ->setDepartment($config['department'])
+            ->setDistanceMin($config['distance']['min'])
+            ->setDistanceMax($config['distance']['max'])
         ;
 
         return $search;

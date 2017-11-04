@@ -8,6 +8,8 @@ class CountTrials
 {
     /**
      * @param Competition[] $competitions
+     *
+     * @return int
      */
     public function execute(array $competitions): int
     {

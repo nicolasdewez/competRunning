@@ -22,6 +22,12 @@ class Search
     /** @var \DateTime */
     private $endDate;
 
+    /** @var float */
+    private $distanceMin;
+
+    /** @var float */
+    private $distanceMax;
+
     /**
      * @return string
      */
@@ -138,6 +144,46 @@ class Search
     public function setEndDate(\DateTime $endDate = null): Search
     {
         $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDistanceMin(): float
+    {
+        return $this->distanceMin;
+    }
+
+    /**
+     * @param float $distanceMin
+     *
+     * @return Search
+     */
+    public function setDistanceMin(float $distanceMin): Search
+    {
+        $this->distanceMin = $distanceMin;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDistanceMax(): float
+    {
+        return $this->distanceMax;
+    }
+
+    /**
+     * @param float $distanceMax
+     *
+     * @return Search
+     */
+    public function setDistanceMax(float $distanceMax): Search
+    {
+        $this->distanceMax = $distanceMax;
 
         return $this;
     }

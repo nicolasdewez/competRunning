@@ -2,17 +2,38 @@
     "require": {
         "php": "^7.1.0",
         "fabpot/goutte": "^3.2",
-        "symfony/yaml": "^3.3",
-        "symfony/dom-crawler": "^3.3",
+        "incenteev/composer-parameter-handler": "^2.1",
+        "symfony/config": "^3.3",
+        "symfony/console": "^3.3",
         "symfony/css-selector": "^3.3",
         "symfony/debug": "^3.3",
+        "symfony/dom-crawler": "^3.3",
         "symfony/var-dumper": "^3.3",
-        "symfony/console": "^3.3",
-        "symfony/config": "^3.3"
+        "symfony/yaml": "^3.3"
     },
     "autoload": {
         "psr-4": {
             "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "parameter-key": "search",
+            "file": "configuration/app.yaml"
         }
     }
 }

@@ -3,3 +3,6 @@ search:
     type: 'Hors Stade'
     ligue: 'H-F'
     department: ~
+    distance:
+        min: 15
+        max: 50
