@@ -13,6 +13,8 @@ class GetCompetition
     const DETAIL_JS_REGEX = "#javascript:bddThrowCompet\('([0-9]+)', 0\)#";
     const DETAIL_URL = 'http://bases.athle.com/asp.net/competitions.aspx?base=calendrier&id=%s';
 
+    const CITY_DEPARTMENT_REGEX = "#(?<city>.*) \(.* / (?<department>[0-9]+)\)#";
+
     const ORGANIZER_NAME = 'Organisateur';
     const ORGANIZER_WEB = 'Site Web';
     const ORGANIZER_MAIL = 'Mèl';
@@ -67,10 +69,15 @@ class GetCompetition
             return in_array($node->filter('td:nth-child(1)')->text(), self::ORGANIZER);
         });
 
+        $matches = [];
+        $city = $crawler->filter('.titles span')->text();
+        preg_match(self::CITY_DEPARTMENT_REGEX, $city, $matches);
+
         $competition = (new Competition())
             ->setName($name)
             ->setDate($crawler->filter('#bddDetails tr td:nth-child(1) span')->text())
-            ->setCity($crawler->filter('.titles span')->text())
+            ->setDepartment($matches['department'])
+            ->setCity($matches['city'])
             ->setOrganizer($this->getValueOrganizer($linesOrganizer, self::ORGANIZER_NAME))
             ->setWeb($this->getValueOrganizer($linesOrganizer, self::ORGANIZER_WEB))
             ->setMail($this->getValueOrganizer($linesOrganizer, self::ORGANIZER_MAIL))
@@ -156,7 +163,7 @@ class GetCompetition
 
             return (new Trial())
                 ->setDate($node->filter('td:nth-child(2)')->text())
-                ->setName($node->filter('td:nth-child(3) b')->text())
+                ->setName($node->filter('td:nth-child(3)')->text())
                 ->setDistance($distance)
             ;
         });

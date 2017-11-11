@@ -29,6 +29,8 @@ class AppConfiguration implements ConfigurationInterface
             ->end()
             ->scalarNode('department')
             ->end()
+            ->scalarNode('challenge')
+            ->end()
             ->arrayNode('distance')
                 ->isRequired()
                 ->children()

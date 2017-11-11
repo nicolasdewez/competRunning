@@ -62,6 +62,22 @@ Change values in configuration file: `configuration/app.yaml`.
 
 All France's departments on 3 digits.
 
+#### Challenges
+
+* Km vertical
+* Trail Découverte (< 21km)
+* Trail Court (21 à 41km)
+* Trail Long (42 à 80km)
+* Ultra Trail (> 80km)
+* 10 Km Route
+* 15 Km Route
+* 20 Km Route
+* 1/2 Marathon
+* 30km Route
+* Marathon
+* 24 Heures
+* 100 Km Route
+
 
 ### Execution
 

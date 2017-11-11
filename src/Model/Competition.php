@@ -14,6 +14,9 @@ class Competition
     private $city;
 
     /** @var string */
+    private $department;
+
+    /** @var string */
     private $organizer;
 
     /** @var string */
@@ -96,6 +99,26 @@ class Competition
     public function setCity(string $city): Competition
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDepartment(): string
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param string $department
+     *
+     * @return Competition
+     */
+    public function setDepartment(string $department): Competition
+    {
+        $this->department = $department;
 
         return $this;
     }

@@ -13,6 +13,7 @@ class GetResults
     const FORM_TYPE = 'frmtype1';
     const FORM_LIGUE = 'frmligue';
     const FORM_DEPARTMENT = 'frmdepartement';
+    const FORM_CHALLENGE = 'frmepreuve';
     const FORM_DATE = 'frmdate_%s%d';
     const FORM_PAGE = 'frmposition';
 
@@ -33,6 +34,7 @@ class GetResults
             self::FORM_TYPE => $search->getType(),
             self::FORM_LIGUE => $search->getLigue(),
             self::FORM_DEPARTMENT => $search->getDepartment(),
+            self::FORM_CHALLENGE => $search->getChallenge(),
             sprintf(self::FORM_DATE, 'j', 1) => null !== $search->getStartDate() ? (int)$search->getStartDate()->format('d') : '',
             sprintf(self::FORM_DATE, 'm', 1) => null !== $search->getStartDate() ? (int)$search->getStartDate()->format('m') : '',
             sprintf(self::FORM_DATE, 'a', 1) => null !== $search->getStartDate() ? $search->getStartDate()->format('Y') : '',

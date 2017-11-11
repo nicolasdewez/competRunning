@@ -19,6 +19,7 @@ class Export
                 'Date',
                 'Nom',
                 'Ville',
+                'Département',
                 'Distance (km)',
                 'Libellé',
                 'Départ',
@@ -40,6 +41,7 @@ class Export
                         $competition->getDate(),
                         $competition->getName(),
                         $competition->getCity(),
+                        $competition->getDepartment(),
                         number_format($trial->getDistance(), 1),
                         $trial->getName(),
                         $trial->getDate(),
@@ -48,7 +50,7 @@ class Export
                         $competition->getMail(),
                         $competition->getPhone(),
                         sprintf('%s %s %s', $competition->getAddress(), $competition->getAddressZip(), $competition->getAddressCity()),
-                        implode(',', $competition->getServices()),
+                        implode(', ', $competition->getServices()),
                     ],
                     ';'
                 );

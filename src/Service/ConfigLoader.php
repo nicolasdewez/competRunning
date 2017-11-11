@@ -23,6 +23,7 @@ class ConfigLoader
             ->setLigue($config['ligue'])
             ->setType($config['type'])
             ->setDepartment($config['department'])
+            ->setChallenge($config['challenge'])
             ->setDistanceMin($config['distance']['min'])
             ->setDistanceMax($config['distance']['max'])
         ;

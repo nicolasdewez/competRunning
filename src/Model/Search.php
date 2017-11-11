@@ -16,6 +16,9 @@ class Search
     /** @var string */
     private $department;
 
+    /** @var string */
+    private $challenge;
+
     /** @var \DateTime */
     private $startDate;
 
@@ -104,6 +107,26 @@ class Search
     public function setDepartment(string $department = null): Search
     {
         $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChallenge(): ?string
+    {
+        return $this->challenge;
+    }
+
+    /**
+     * @param string $challenge
+     *
+     * @return Search
+     */
+    public function setChallenge(string $challenge = null): Search
+    {
+        $this->challenge = $challenge;
 
         return $this;
     }

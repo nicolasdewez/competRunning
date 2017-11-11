@@ -3,6 +3,7 @@ search:
     type: 'Hors Stade'
     ligue: 'H-F'
     department: ~
+    challenge: ~
     distance:
         min: 15
         max: 50
